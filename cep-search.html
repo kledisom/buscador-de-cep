@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <title>estudos</title>
+	
+	<style>
+	 * {
+	  margin: 0px;
+	  padding: 0px;
+	 }
+	 
+	 body {
+	// background: #380152; background: -moz-linear-gradient(180deg,  #380152 0%,#9903e3 100%); background: -webkit-linear-gradient(180deg,  #380152 0%,#9903e3 100%); background: linear-gradient(180deg,  #380152 0%,#9903e3 100%);
+	 font-family: 'Oswald', sans-serif;
+	 }
+	 
+	 h1 {
+	  background: -webkit-linear-gradient(left, #0c8906 10%, #EAF400 70%, #2907cd 77%);
+	  -webkit-background-clip : text;
+	  -webkit-text-fill-color: transparent;	  
+	 }
+	 
+	 main {
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  
+	  height: 96vh;
+	  width: 100%;
+	 }
+	 
+	 form {
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  gap: 10px;
+	  align-items: center;
+	  padding: 10px;
+	 
+	  background-color: #fff;
+	  border-radius: 10px;
+	  height: auto;
+	  width: 600px;
+	 }
+	 
+	 label {
+	  font-size: 1.5rem;
+	 }
+	 
+	 #cep {
+	  height: 30px;
+	  width: 70%;
+	  border: 2px solid #000;
+	  
+	  text-align: center;
+	  margin-bottom: 50px;
+	 }
+	 
+	 #btn {
+	  height: 40px;
+	  width: 30%;
+	  cursor: pointer;
+	  
+	  background: #808080; background: -moz-linear-gradient(to right,  #808080 0%,#e6e6e6 100%); background: -webkit-linear-gradient(to right,  #808080 0%,#e6e6e6 100%); background: linear-gradient(to right,  #808080 0%,#e6e6e6 100%);
+	  border-radius: 10px;
+	 }
+	 
+	 #teste {
+	  display: none;
+	  height: auto;
+	  width: 50%;
+	  background-color: red;
+	 }
+	 
+	 <!-- footer { -->
+	  <!-- background-color: ; -->
+	  <!-- height: 10vh; -->
+	  <!-- background: #000; -->
+	  <!-- opacity: 0.6; -->
+	 
+	 <!-- } -->
+	 
+	 <!-- footer > p { -->
+	  <!-- color: #fff; -->
+	 <!-- } -->
+	 
+	</style>
+  </head>
+  <body>
+		<main>	
+			<!-- <h1>Buscardor de Cep Online</h1> -->
+			<form id="form-03">
+			 <label>Buscardor de Cep Online</label>
+			 <input type="text" id="cep" placeholder="informe o cep"/>
+			 <div id="teste">
+				 <ul>
+				     <li></li>
+					 <li></li>
+					    <li></li>
+					 <li></li>
+					    <li></li>
+					 <li></li>
+					    <li></li>
+					 <li></li>
+					    <li></li>
+					 <li></li>
+				 </ul>
+			 </div>
+			 <input type="button" id="btn" value="BUSCAR CEP" onclick="buscarCep()"/>
+			</form>
+		</main>
+		<footer><p>Desenvolvido por KLEDISOM</p></footer>
+ 
+  
+     <script>
+		 
+		 function buscarCep() {
+			 let cep = document.getElementById('cep').value; 
+				let value = cep;
+				  
+			     localStorage.setItem('cep', value);
+			if(cep != '') {
+			document.getElementById('cep').style.backgroundColor = '#fff';
+			 api(value);
+			} else {
+			 document.getElementById('cep').style.backgroundColor = 'red';
+			}
+			 
+			
+			 }
+		 
+		 async function api(n) {
+			const file1 = 'http://viacep.com.br/ws/';
+			const file2 = n;
+			const file3 = '/json/';
+		
+		    const file = file1 + file2 + file3;
+	
+		
+			fetch(file)
+			.then(x => {
+			 return x.json()
+			})
+			.then(dado => {
+			
+			console.log(dado.cep)
+			console.log(dado.uf)
+	
+				let li = document.querySelectorAll('li');
+			 
+				li[0].innerHTML = 'CEP: ' + dado.cep;
+				li[1].innerHTML = 'LOGRADOURO: ' + dado.logradouro;
+				li[2].innerHTML = 'COMPLEMENTO: ' + dado.complemento;
+				li[3].innerHTML = 'BAIRRO: ' + dado.bairro;
+				li[4].innerHTML = 'LOCALIDADE: ' + dado.localidade;
+				li[5].innerHTML = 'ESTADO: ' + dado.uf;
+				li[6].innerHTML = 'IBGE: ' + dado.ibge;
+				li[7].innerHTML = 'GIA: ' + dado.gia;
+				li[8].innerHTML = 'DDD: ' + dado.ddd;
+				li[9].innerHTML = 'SIAFI: ' + dado.siafi;
+	
+			})
+			.catch((err) => {console.log(err.message)})
+		
+			 let teste = document.getElementById('teste');		
+				   teste.style.display = 'block';
+			 
+			
+		 }
+		
+		
+				async function f() {
+				 let promise = new Promise((res, rej) =>{
+				     setTimeout(() => res(
+						
+						'true'
+					 
+					 ), 1000)
+				 });
+				 
+				 let result = await promise;
+				 
+				 console.log(result);
+				 
+					let chave = localStorage.getItem('cep');
+
+					if(result == 'true') {
+
+					api(chave);
+					}
+				 
+				}
+
+				
+
+	  </script>
+  </body>
+</html>
